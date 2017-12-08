@@ -1,0 +1,44 @@
+swagger: "2.0"
+info:
+  description: "This is a excersise API for managing users, orders and items."
+  version: "0.0.1"
+  title: "Store"
+  contact:
+    email: "glad4enkonm@gmail.com"
+    
+tags:
+- name: "orders"
+  description: "Access to orders"
+- name: "users"
+  description: "Everything about users"
+- name: "items"
+  description: "All related to items"
+  
+schemes:
+- "http"
+
+paths:
+  /items:
+    get:
+      tags: 
+        - "items"
+      summary: Get a list of existing items.
+      responses:
+        200:
+          description: List of existing items.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+
+definitions:
+  Item:
+    type: object
+    properties:
+      id:
+        type: integer
+      description:
+        type: string
+      price:
+        type: number
+              

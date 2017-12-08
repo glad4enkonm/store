@@ -155,3 +155,7 @@ _Pvt_Extensions
 .paket/paket.exe
 paket-files/
 
+# Codegen artifacts
+Store/.swagger-codegen/VERSION
+Store/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+Store/.swagger-codegen-ignore
