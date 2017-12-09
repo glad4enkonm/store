@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Store.Test
-{
-    using AutoMapper;
+{    
     using Store.Controllers;
     using Store.Domain;
     using Store.Domain.Exceptions;
     using Store.Domain.Repositories;
+    using Store.Models;
     using System.Net;
 
     public class Api_ItemsTests : IDisposable
@@ -28,7 +28,7 @@ namespace Store.Test
 
         public Api_ItemsTests()
         {
-            repositoryMock = new Mock<IItemRepository>();
+            repositoryMock = new Mock<IItemRepository>();            
 
             testServer = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>()
@@ -69,7 +69,7 @@ namespace Store.Test
 
             var responseItem = JsonConvert.DeserializeObject<Models.Item>(await response.Content.ReadAsStringAsync());
 
-            Models.Item modelItem = Mapper.Map<Models.Item>(item);
+            Models.Item modelItem = Mapping.Instance.Map<Models.Item>(item);
             Assert.Equal( modelItem, responseItem);
 
             repositoryMock.Verify();
@@ -93,12 +93,6 @@ namespace Store.Test
             var response = await client.GetAsync("/items/not-a-number");
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
-        }
-
-        [Fact]
-        public async Task Get_Should_Do_Something_Useful_itemId()
-        {
-            throw new NotImplementedException();
         }
     }
 }

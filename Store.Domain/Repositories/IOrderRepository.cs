@@ -11,7 +11,7 @@ namespace Store.Domain.Repositories
         Task<Order> GetById(long id);
         Task<Order> DeleteById(long id);
 
-        Task<IEnumerable<Order>> List(long OrderId);
+        Task<IEnumerable<Order>> List();
         Task<Order> AddItem(long OrderId, long itemId);
         Task<Order> RemoveItem(long OrderId, long itemId);
 

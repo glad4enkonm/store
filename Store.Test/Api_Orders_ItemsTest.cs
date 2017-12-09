@@ -39,20 +39,20 @@ namespace Store.Test
             testServer.Dispose();
         }
 
-        [Fact]
-        public async Task Delete_Should_Do_Something_Useful_orderId_itemId()
-        {
-            throw new NotImplementedException();
-        }
-        [Fact]
-        public async Task Patch_Should_Do_Something_Useful_orderId_itemId_quantity()
-        {
-            throw new NotImplementedException();
-        }
-        [Fact]
-        public async Task Put_Should_Do_Something_Useful_orderId_itemId_quantity()
-        {
-            throw new NotImplementedException();
-        }
+        //[Fact]
+        //public async Task Delete_Should_Do_Something_Useful_orderId_itemId()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //[Fact]
+        //public async Task Patch_Should_Do_Something_Useful_orderId_itemId_quantity()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //[Fact]
+        //public async Task Put_Should_Do_Something_Useful_orderId_itemId_quantity()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

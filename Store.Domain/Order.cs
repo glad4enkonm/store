@@ -10,3 +10,4 @@ namespace Store.Domain
         public Dictionary<long, int> QuantityByItemId;
     }
 }
+    

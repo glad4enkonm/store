@@ -37,7 +37,7 @@ namespace Store
             services.AddMvc();
 
             services.AddSingleton<IItemRepository>(new ItemRepository());
-            //services.AddSingleton<IOrderRepository>(new OrderRepository());
+            services.AddSingleton<IOrderRepository>(new OrderRepository());
         }
 
 
@@ -56,7 +56,7 @@ namespace Store
         }
 
         public void ConfigureTesting(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {         
+        {
             app.UseMvc();
         }
 
