@@ -25,7 +25,7 @@
               <language>com.interfacema.swagger.Codegen</language>
               <configOptions>
 		      <sourceFolder>./</sourceFolder>
-		      <packageName>Swagger.Petshop</packageName>
+		      <packageName>Store</packageName>
 		      <type-mappings>file=IFormFile,PatchArray=JsonPatchDocument,UserPatchArray=JsonPatchDocument&lt;UserCreation&gt;,SyncSessionPatchArray=JsonPatchDocument&lt;SyncSession&gt;,ObjectPatchArray=JsonPatchDocument&lt;object&gt;,DocumentPatchArray=JsonPatchDocument&lt;Document&gt;,ImagePatchArray=JsonPatchDocument&lt;Image&gt;,VisitPatchArray=JsonPatchDocument&lt;Visit&gt;</type-mappings>
               </configOptions>
             </configuration>
