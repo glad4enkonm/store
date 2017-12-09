@@ -15,7 +15,9 @@ namespace Store.Test
     using AutoMapper;
     using Store.Controllers;
     using Store.Domain;
+    using Store.Domain.Exceptions;
     using Store.Domain.Repositories;
+    using System.Net;
 
     public class Api_ItemsTests : IDisposable
     {
@@ -71,6 +73,26 @@ namespace Store.Test
             Assert.Equal( modelItem, responseItem);
 
             repositoryMock.Verify();
+        }
+
+        [Fact]
+        public async Task Should_Return_404_When_Valid_But_Absent_Id()
+        {
+            repositoryMock
+                .Setup(repo => repo.GetById(It.IsAny<long>()))
+                .Throws<ItemNotFoundException>();
+
+            var response = await client.GetAsync($"/items/{0L}");
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_Return_400_When_Id_Invalid()
+        {
+            var response = await client.GetAsync("/items/not-a-number");
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
         [Fact]
