@@ -6,8 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.StaticFiles;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace Store
 {
@@ -26,15 +30,39 @@ namespace Store
             services.AddMvc();
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            ConfigureSwaggerUI(app);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
             app.UseMvc();
+            
+        }
+
+        private void ConfigureSwaggerUI(IApplicationBuilder app)
+        {
+            var provider = new FileExtensionContentTypeProvider();
+            provider.Mappings[".yml"] = "application/yaml";
+
+            app.UseDefaultFiles(new DefaultFilesOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/")),
+                RequestPath = new PathString("/swagger")
+            });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(
+                   Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/")),
+                RequestPath = new PathString("/swagger"),
+                ContentTypeProvider = provider,
+            });
         }
     }
 }
