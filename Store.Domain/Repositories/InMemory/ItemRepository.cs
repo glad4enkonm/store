@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Store.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,13 @@ namespace Store.Domain.Repositories.InMemory
         };
 
 
-        public Task<Item> GetById(UInt64 id)
+        public Task<Item> GetById(long id)
         {
             var item = _items.SingleOrDefault(i => i.Id == id);
 
             if (item == null)
             {
-                throw new Exception();//ItemNotFoundException();
+                throw new ItemNotFoundException();
             }
 
             return Task.FromResult(item);

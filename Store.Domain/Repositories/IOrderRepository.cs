@@ -8,13 +8,13 @@ namespace Store.Domain.Repositories
     public interface IOrderRepository
     {
         Task<Order> Create();
-        Task<Order> GetById(UInt64 id);
-        Task<Order> DeleteById(UInt64 id);
+        Task<Order> GetById(long id);
+        Task<Order> DeleteById(long id);
 
-        Task<IEnumerable<Order>> List(UInt64 OrderId);
-        Task<Order> AddItem(UInt64 OrderId, UInt64 itemId);
-        Task<Order> RemoveItem(UInt64 OrderId, UInt64 itemId);
+        Task<IEnumerable<Order>> List(long OrderId);
+        Task<Order> AddItem(long OrderId, long itemId);
+        Task<Order> RemoveItem(long OrderId, long itemId);
 
-        Task<Order> UpdateQuantity(UInt64 OrderId, UInt64 itemId, ushort quantity);
+        Task<Order> UpdateQuantity(long OrderId, long itemId, ushort quantity);
     }
 }

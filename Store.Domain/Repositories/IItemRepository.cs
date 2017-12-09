@@ -7,7 +7,7 @@ namespace Store.Domain.Repositories
 {
     public interface IItemRepository
     {
-        Task<Item> GetById(UInt64 id);
+        Task<Item> GetById(long id);
         Task<IEnumerable<Item>> List();
     }
 }
