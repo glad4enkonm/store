@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.StaticFiles;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
+using Store.Domain.Repositories;
+using Store.Domain.Repositories.InMemory;
 
 namespace Store
 {
@@ -24,10 +26,18 @@ namespace Store
 
         public IConfiguration Configuration { get; }
 
+        public void ConfigureTestingServices(IServiceCollection services)
+        {
+            services.AddMvc();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSingleton<IItemRepository>(new ItemRepository());
+            //services.AddSingleton<IOrderRepository>(new OrderRepository());
         }
 
 
@@ -43,6 +53,11 @@ namespace Store
 
             app.UseMvc();
             
+        }
+
+        public void ConfigureTesting(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {         
+            app.UseMvc();
         }
 
         private void ConfigureSwaggerUI(IApplicationBuilder app)
