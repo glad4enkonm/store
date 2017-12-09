@@ -1,23 +1,24 @@
 swagger: "2.0"
 info:
   description: "This is a excersise API for managing users, orders and items."
-  version: "0.0.1"
+  version: "0.1.0"
   title: "Store"
   contact:
     email: "glad4enkonm@gmail.com"
     
 tags:
 - name: "orders"
-  description: "Access to orders"
-- name: "users"
-  description: "Everything about users"
+  description: "Access to orders."
+- name: "orders-items"
+  description: "Item in order related."
 - name: "items"
-  description: "All related to items"
+  description: "All related to items."
   
 schemes:
 - "http"
 
 paths:
+
   /items:
     get:
       tags: 
@@ -27,18 +28,208 @@ paths:
         200:
           description: List of existing items.
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Item'
+            $ref: '#/definitions/ItemList'
+            
+  /items/{itemId}:
+    parameters:
+      - $ref: "#/parameters/itemId"
+    get:
+      tags: 
+        - "items"
+      summary: Get information about an item.
+      responses:
+        200:
+          description: Ok.
+          schema: 
+            $ref: '#/definitions/Item'
+        400:
+          description: Invalid id specified
+        404:
+          description: Item not found
+          
+  /orders:
+    get:
+      tags: 
+        - "orders"
+      summary: Get a list of existing orders.
+      responses:
+        200:
+          description: List of existing orders.
+          schema:
+            $ref: '#/definitions/OrderList'
+    put:
+      summary: "New order."
+      description: "Creates a new order."
+      tags:
+        - "orders"
+      responses:
+        200:
+          description: "A new order created."
+          schema:
+            $ref: '#/definitions/Id'
+            
+  /orders/{orderId}:
+    parameters:
+    - $ref: "#/parameters/orderId"
+    get:
+      tags: 
+        - "orders"
+      summary: Get information about an order.
+      responses:
+        200:
+          description: Ok.
+          schema: 
+            $ref: '#/definitions/Order'
+        400:
+          description: Invalid id specified.
+        404:
+          description: Item not found.
+    patch:
+      summary: "Modify order content."
+      tags: 
+        - "orders"
+      parameters:
+        - $ref: "#/parameters/quantityList"
+      responses:
+        200:
+          description: "Done."
+          schema:
+            $ref: '#/definitions/Order'
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '#/definitions/BadRequest'
+    delete:
+      summary: "Remove order."
+      tags: 
+        - "orders"
+      responses: 
+        200:
+          description: "Done."
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '#/definitions/BadRequest'
+            
+  /orders/{orderId}/items/{itemId}:
+    parameters:
+      - $ref: "#/parameters/orderId"
+      - $ref: "#/parameters/itemId"
+    put:
+      tags: 
+        - "orders-items"
+      summary: Add some items to an order.
+      parameters:
+        - name: quantity
+          in: body
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Ok.
+          schema: 
+            $ref: '#/definitions/Order'
+        400:
+          description: Invalid id specified.
+          schema:
+            $ref: '#/definitions/BadRequest'
+    delete:
+      tags: 
+        - "orders-items"
+      summary: Delete item from an arder.
+      responses:
+        200:
+          description: Ok.
+        400:
+          description: Invalid id specified.
+          schema:
+            $ref: '#/definitions/BadRequest'
+    patch:
+      tags: 
+        - "orders-items"
+      summary: Modify items quantity in an arder.
+      parameters:
+        - name: quantity
+          in: body
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Ok.
+          schema: 
+            $ref: '#/definitions/Order'
+        400:
+          description: Invalid id specified.
+          schema:
+            $ref: '#/definitions/BadRequest'
+            
+parameters:
+  
+  orderId:
+    name: orderId
+    in: path
+    required: true
+    type: integer
+    format: "int64"
+    
+  itemId:
+    name: itemId
+    in: path
+    required: true
+    type: integer
+    format: "int64"
+    
+  quantityList:
+    name: quantityList
+    in: body
+    required: true
+    schema:
+      $ref: '#/definitions/QuantityList'
 
 definitions:
   Item:
     type: object
     properties:
-      id:
-        type: integer
+      itemId:
+        $ref: '#/definitions/Id'
       description:
         type: string
       price:
         type: number
-              
+        
+  ItemList:
+    type: array
+    items:
+      $ref: '#/definitions/Item'
+  
+  QuantityList:
+    type: array
+    items:
+      type: object
+      properties:
+        itemId:
+          $ref: '#/definitions/Id'
+        quantity:
+          type: integer
+          
+  Order:
+    type: object
+    properties:
+      orderId:
+        $ref: '#/definitions/Id'
+      items:
+       $ref: '#/definitions/QuantityList'
+  
+  OrderList:
+    type: array
+    items:
+      $ref: '#/definitions/Order'
+    
+  BadRequest:
+    type: string
+    
+  Id:
+    type: integer
+    format: "int64"
