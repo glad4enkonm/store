@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj", "{44F78E24-5257-4D50-8677-216E1B288C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "Store\Store.csproj", "{44F78E24-5257-4D50-8677-216E1B288C11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Test", "Store.Test\Store.Test.csproj", "{980E9AD2-FFDA-4129-81B4-ECEF20B06D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Test", "Store.Test\Store.Test.csproj", "{980E9AD2-FFDA-4129-81B4-ECEF20B06D7C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{44F78E24-5257-4D50-8677-216E1B288C11} = {44F78E24-5257-4D50-8677-216E1B288C11}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Client", "Store.Client\Store.Client.csproj", "{0CC904B6-C45C-4102-8B30-D88D5DDF0360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client", "Store.Client\Store.Client.csproj", "{0CC904B6-C45C-4102-8B30-D88D5DDF0360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Client.Example", "Store.Client.Example\Store.Client.Example.csproj", "{796E2426-07F3-428D-8D88-943E8337E0D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client.Example", "Store.Client.Example\Store.Client.Example.csproj", "{796E2426-07F3-428D-8D88-943E8337E0D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
