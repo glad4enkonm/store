@@ -43,7 +43,7 @@ namespace Store.Models
         /// </summary>
         /// <param name="OrderId">OrderId.</param>
         /// <param name="Items">Items.</param>
-        public Order(Id OrderId = null, QuantityList Items = null)
+        public Order(long? OrderId = null, QuantityList Items = null)
         {
             this.OrderId = OrderId;
             this.Items = Items;
@@ -54,7 +54,7 @@ namespace Store.Models
         /// Gets or Sets OrderId
         /// </summary>
         [DataMember(Name="orderId")]
-        public Id OrderId { get; set; }
+        public long? OrderId { get; set; }
 
         /// <summary>
         /// Gets or Sets Items

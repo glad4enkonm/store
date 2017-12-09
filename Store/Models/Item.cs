@@ -44,7 +44,7 @@ namespace Store.Models
         /// <param name="ItemId">ItemId.</param>
         /// <param name="Description">Description.</param>
         /// <param name="Price">Price.</param>
-        public Item(Id ItemId = null, string Description = null, decimal? Price = null)
+        public Item(long? ItemId = null, string Description = null, decimal? Price = null)
         {
             this.ItemId = ItemId;
             this.Description = Description;
@@ -56,7 +56,7 @@ namespace Store.Models
         /// Gets or Sets ItemId
         /// </summary>
         [DataMember(Name="itemId")]
-        public Id ItemId { get; set; }
+        public long? ItemId { get; set; }
 
         /// <summary>
         /// Gets or Sets Description

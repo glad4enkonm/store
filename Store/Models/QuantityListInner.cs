@@ -43,7 +43,7 @@ namespace Store.Models
         /// </summary>
         /// <param name="ItemId">ItemId.</param>
         /// <param name="Quantity">Quantity.</param>
-        public QuantityListInner(Id ItemId = null, int? Quantity = null)
+        public QuantityListInner(long? ItemId = null, int? Quantity = null)
         {
             this.ItemId = ItemId;
             this.Quantity = Quantity;
@@ -54,7 +54,7 @@ namespace Store.Models
         /// Gets or Sets ItemId
         /// </summary>
         [DataMember(Name="itemId")]
-        public Id ItemId { get; set; }
+        public long? ItemId { get; set; }
 
         /// <summary>
         /// Gets or Sets Quantity
