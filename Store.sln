@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "Store\Store.csproj", "{44F78E24-5257-4D50-8677-216E1B288C11}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93D124B3-F337-4719-B40C-DCC1C639C65D} = {93D124B3-F337-4719-B40C-DCC1C639C65D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Test", "Store.Test\Store.Test.csproj", "{980E9AD2-FFDA-4129-81B4-ECEF20B06D7C}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -13,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client", "Store.Client\Store.Client.csproj", "{0CC904B6-C45C-4102-8B30-D88D5DDF0360}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client.Example", "Store.Client.Example\Store.Client.Example.csproj", "{796E2426-07F3-428D-8D88-943E8337E0D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Domain", "Store.Domain\Store.Domain.csproj", "{93D124B3-F337-4719-B40C-DCC1C639C65D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +41,10 @@ Global
 		{796E2426-07F3-428D-8D88-943E8337E0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{796E2426-07F3-428D-8D88-943E8337E0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{796E2426-07F3-428D-8D88-943E8337E0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93D124B3-F337-4719-B40C-DCC1C639C65D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93D124B3-F337-4719-B40C-DCC1C639C65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93D124B3-F337-4719-B40C-DCC1C639C65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93D124B3-F337-4719-B40C-DCC1C639C65D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
