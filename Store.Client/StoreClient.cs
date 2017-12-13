@@ -44,5 +44,31 @@ namespace Store.Client
             return Model.Mapping.Instance.Map<Business.Item>(items);
         }
 
+        public IEnumerable<Business.Order> GetOrders()
+        {
+            var request = new RestRequest { Resource = "Orders" };
+
+            var orders = Execute<List<Transport.Order>>(request);
+            return Model.Mapping.Instance.Map<IEnumerable<Business.Order>>(orders);
+        }
+
+        public Business.Order GetOrder(long orderId)
+        {
+            var request = new RestRequest { Resource = "Orders/{orderId}" };
+            request.AddParameter("orderId", orderId, ParameterType.UrlSegment);
+
+            var order = Execute<Transport.Order>(request);
+            return Model.Mapping.Instance.Map<Business.Order>(order);
+        }
+
+        public long CreateOrder()
+        {
+            var request = new RestRequest { Resource = "Orders", Method = Method.PUT };            
+
+            var newOrderId = Execute<long>(request);
+
+            return newOrderId;
+        }
+
     }
 }

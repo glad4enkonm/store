@@ -8,10 +8,16 @@ namespace Store.Model
         static Mapping()
         {
             IMapper innerMapper = (
-                new MapperConfiguration(cfg =>
+                new MapperConfiguration(cfg => {
+
                     cfg.CreateMap<KeyValuePair<long, int>, Transport.QuantityListInner>()
                         .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Key))
-                        .ForMember(dst => dst.Quantity, opt => opt.MapFrom(src => src.Value)))
+                        .ForMember(dst => dst.Quantity, opt => opt.MapFrom(src => src.Value));
+
+                    cfg.CreateMap<Transport.QuantityListInner, KeyValuePair<long, int>>()
+                        .ForMember(dst => dst.Key, opt => opt.MapFrom(src => src.ItemId))
+                        .ForMember(dst => dst.Value, opt => opt.MapFrom(src => src.Quantity));
+                })
             ).CreateMapper();
 
 
@@ -23,13 +29,15 @@ namespace Store.Model
                 conf.CreateMap<Transport.Item, Business.Item>()
                     .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.ItemId));
 
-                conf.CreateMap<Business.Item, Transport.Item>()
-                   .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Id));
-
                 conf.CreateMap<Business.Order, Transport.Order>()
                     .ForMember(dst => dst.OrderId, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dst => dst.Items, opt =>
                          opt.MapFrom(src => innerMapper.Map<Transport.QuantityList>(src.QuantityByItemId)));
+
+                conf.CreateMap< Transport.Order, Business.Order>()
+                    .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.OrderId))
+                    .ForMember(dst => dst.QuantityByItemId, opt =>
+                         opt.MapFrom(src => innerMapper.Map<KeyValuePair<long, int>>(src.Items)));
 
             });
             

@@ -15,6 +15,15 @@ namespace Store.Client.Example
             var items =  storeClient.GetItems();
 
             var firstItem = storeClient.GetItem(1);
+
+            long newOrderId = storeClient.CreateOrder();
+            var newOrder = storeClient.GetOrder(newOrderId);
+
+            newOrderId = storeClient.CreateOrder();
+            var oneMoreOrder = storeClient.GetOrder(newOrderId);
+
+            var orders = storeClient.GetOrders();
+
         }
     }
 }
