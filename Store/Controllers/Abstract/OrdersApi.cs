@@ -20,19 +20,9 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Store.Models;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Http;
+using Transport = Store.Model.Transport;
 
 namespace Store.Controllers.Abstract
 {
@@ -87,7 +77,7 @@ namespace Store.Controllers.Abstract
         /// <response code="400">Bad request.</response>
         [HttpPatch]
         [Route("/orders/{orderId}")]
-        public abstract Task<IActionResult> PatchAsync([FromRoute]long? orderId, [FromBody]QuantityList quantityList);
+        public abstract Task<IActionResult> PatchAsync([FromRoute]long? orderId, [FromBody]Transport.QuantityList quantityList);
 
 
         /// <summary>

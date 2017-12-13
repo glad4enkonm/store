@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Store.Domain.Repositories
+namespace Store.Model.Business.Repositories
 {
     public interface IOrderRepository
     {

@@ -30,18 +30,18 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Store.Models
+namespace Store.Model.Transport
 {
     /// <summary>
     /// 
     /// </summary>
     [DataContract]
-    public partial class ItemList : List<Item>,  IEquatable<ItemList>
+    public partial class OrderList : List<Order>,  IEquatable<OrderList>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemList" /> class.
+        /// Initializes a new instance of the <see cref="OrderList" /> class.
         /// </summary>
-        public ItemList()
+        public OrderList()
         {
             
         }
@@ -54,7 +54,7 @@ namespace Store.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ItemList {\n");
+            sb.Append("class OrderList {\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -78,15 +78,15 @@ namespace Store.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((ItemList)obj);
+            return Equals((OrderList)obj);
         }
 
         /// <summary>
-        /// Returns true if ItemList instances are equal
+        /// Returns true if OrderList instances are equal
         /// </summary>
-        /// <param name="other">Instance of ItemList to be compared</param>
+        /// <param name="other">Instance of OrderList to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ItemList other)
+        public bool Equals(OrderList other)
         {
 
             if (ReferenceEquals(null, other)) return false;
@@ -112,12 +112,12 @@ namespace Store.Models
 
         #region Operators
 
-        public static bool operator ==(ItemList left, ItemList right)
+        public static bool operator ==(OrderList left, OrderList right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(ItemList left, ItemList right)
+        public static bool operator !=(OrderList left, OrderList right)
         {
             return !Equals(left, right);
         }

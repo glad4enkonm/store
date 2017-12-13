@@ -1,4 +1,6 @@
 ﻿using System;
+using Store.Client;
+using RestSharp;
 
 namespace Store.Client.Example
 {
@@ -6,7 +8,11 @@ namespace Store.Client.Example
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            const string baseUrl = "http://localhost:59801/";
+            IRestClient restClient = new RestClient() { BaseUrl = new Uri(baseUrl) };
+
+            var storeClient = new StoreClient(restClient);
+            var items =  storeClient.GetItems();
         }
     }
 }

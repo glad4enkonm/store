@@ -20,19 +20,8 @@
  * limitations under the License.
  */
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Store.Models;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Http;
 
 namespace Store.Controllers.Abstract.Orders
 {

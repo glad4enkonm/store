@@ -4,20 +4,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Store.Test
-{    
-    using Store.Controllers;
-    using Store.Domain;
-    using Store.Domain.Exceptions;
-    using Store.Domain.Repositories;
-    using Store.Models;
+{
+    using Store.Model;
+    using Store.Model.Business.Repositories;
+    using Store.Model.Business.Repositories.Exceptions;
     using System.Net;
+    using Business = Store.Model.Business;
+    using Transport = Store.Model.Transport;
 
     public class Api_ItemsTests : IDisposable
     {
@@ -51,7 +49,7 @@ namespace Store.Test
         [Fact]
         public async Task Get_Should_Return_Item_If_Id_Is_Valid_And_Item_Exist()
         {
-            var item = new Domain.Item
+            var item = new Business.Item
             {
                 Id = 1000,
                 Description = "Test",
@@ -67,9 +65,9 @@ namespace Store.Test
 
             Assert.True(response.IsSuccessStatusCode);
 
-            var responseItem = JsonConvert.DeserializeObject<Models.Item>(await response.Content.ReadAsStringAsync());
+            var responseItem = JsonConvert.DeserializeObject<Transport.Item>(await response.Content.ReadAsStringAsync());
 
-            Models.Item modelItem = Mapping.Instance.Map<Models.Item>(item);
+            Transport.Item modelItem = Mapping.Instance.Map<Transport.Item>(item);
             Assert.Equal( modelItem, responseItem);
 
             repositoryMock.Verify();

@@ -1,11 +1,9 @@
-﻿using Store.Domain.Exceptions;
-using System;
+﻿using Store.Model.Business.Repositories.Exceptions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Store.Domain.Repositories.InMemory
+namespace Store.Model.Business.Repositories.InMemory
 {
     public class ItemRepository : IItemRepository
     {

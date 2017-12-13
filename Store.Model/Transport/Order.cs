@@ -30,21 +30,37 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Store.Models
+namespace Store.Model.Transport
 {
     /// <summary>
     /// 
     /// </summary>
     [DataContract]
-    public partial class OrderList : List<Order>,  IEquatable<OrderList>
+    public partial class Order :  IEquatable<Order>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderList" /> class.
+        /// Initializes a new instance of the <see cref="Order" /> class.
         /// </summary>
-        public OrderList()
+        /// <param name="OrderId">OrderId.</param>
+        /// <param name="Items">Items.</param>
+        public Order(long? OrderId = null, QuantityList Items = null)
         {
+            this.OrderId = OrderId;
+            this.Items = Items;
             
         }
+
+        /// <summary>
+        /// Gets or Sets OrderId
+        /// </summary>
+        [DataMember(Name="orderId")]
+        public long? OrderId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Items
+        /// </summary>
+        [DataMember(Name="items")]
+        public QuantityList Items { get; set; }
 
 
         /// <summary>
@@ -54,7 +70,9 @@ namespace Store.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class OrderList {\n");
+            sb.Append("class Order {\n");
+            sb.Append("  OrderId: ").Append(OrderId).Append("\n");
+            sb.Append("  Items: ").Append(Items).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -63,7 +81,7 @@ namespace Store.Models
         /// Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public  new string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -78,21 +96,31 @@ namespace Store.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((OrderList)obj);
+            return Equals((Order)obj);
         }
 
         /// <summary>
-        /// Returns true if OrderList instances are equal
+        /// Returns true if Order instances are equal
         /// </summary>
-        /// <param name="other">Instance of OrderList to be compared</param>
+        /// <param name="other">Instance of Order to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(OrderList other)
+        public bool Equals(Order other)
         {
 
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return false;
+            return 
+                (
+                    this.OrderId == other.OrderId ||
+                    this.OrderId != null &&
+                    this.OrderId.Equals(other.OrderId)
+                ) && 
+                (
+                    this.Items == other.Items ||
+                    this.Items != null &&
+                    this.Items.Equals(other.Items)
+                );
         }
 
         /// <summary>
@@ -106,18 +134,22 @@ namespace Store.Models
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
+                    if (this.OrderId != null)
+                    hash = hash * 59 + this.OrderId.GetHashCode();
+                    if (this.Items != null)
+                    hash = hash * 59 + this.Items.GetHashCode();
                 return hash;
             }
         }
 
         #region Operators
 
-        public static bool operator ==(OrderList left, OrderList right)
+        public static bool operator ==(Order left, Order right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(OrderList left, OrderList right)
+        public static bool operator !=(Order left, Order right)
         {
             return !Equals(left, right);
         }

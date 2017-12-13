@@ -10,11 +10,13 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace Store.Test
-{    
-    using Store.Domain.Exceptions;
-    using Store.Domain.Repositories;
-    using Store.Models;
+{
+    using Store.Model;
+    using Store.Model.Business.Repositories;
+    using Store.Model.Business.Repositories.Exceptions;
     using System.Net;
+    using Business = Store.Model.Business;
+    using Transport = Store.Model.Transport;
 
     public class Api_OrdersTests : IDisposable
     {
@@ -48,11 +50,11 @@ namespace Store.Test
         [Fact]
         public async Task Get_Should_Return_Orders()
         {
-            IEnumerable<Domain.Order> orders = 
-                new List<Domain.Order>() {
-                    new Domain.Order() { Id = 100 },
-                    new Domain.Order() { Id = 102 } ,
-                    new Domain.Order() { Id = 103 }
+            IEnumerable<Business.Order> orders = 
+                new List<Business.Order>() {
+                    new Business.Order() { Id = 100 },
+                    new Business.Order() { Id = 102 } ,
+                    new Business.Order() { Id = 103 }
                 };
 
             repositoryMock
@@ -62,11 +64,11 @@ namespace Store.Test
 
             var response = await client.GetAsync($"/orders");
             var responceOrdersList =
-                JsonConvert.DeserializeObject<Models.OrderList>(await response.Content.ReadAsStringAsync());
+                JsonConvert.DeserializeObject<Transport.OrderList>(await response.Content.ReadAsStringAsync());
 
             Assert.True(response.IsSuccessStatusCode);
             var ordersList =
-                Models.Mapping.Instance.Map<Models.OrderList>(orders);
+                Mapping.Instance.Map<Transport.OrderList>(orders);
             Assert.Equal(ordersList.ToString(), responceOrdersList.ToString());
 
             repositoryMock.Verify();
@@ -75,7 +77,7 @@ namespace Store.Test
         [Fact]
         public async Task Get_Should_Return_Order_If_Id_Is_Valid_And_Order_Exist()
         {
-            var order = new Domain.Order
+            var order = new Business.Order
             {
                 Id = 101,
                 QuantityByItemId = new Dictionary<long, int>() { { 1, 2 }, { 3, 4 } }
@@ -90,9 +92,9 @@ namespace Store.Test
 
             Assert.True(response.IsSuccessStatusCode);
 
-            var responseOrder = JsonConvert.DeserializeObject<Models.Order>(await response.Content.ReadAsStringAsync());
+            var responseOrder = JsonConvert.DeserializeObject<Transport.Order>(await response.Content.ReadAsStringAsync());
 
-            Models.Order modelOrder = Mapping.Instance.Map<Models.Order>(order);
+            Transport.Order modelOrder = Mapping.Instance.Map<Transport.Order>(order);
             Assert.Equal(modelOrder.ToString(), responseOrder.ToString());
 
             repositoryMock.Verify();
@@ -121,7 +123,7 @@ namespace Store.Test
         [Fact]
         public async Task Put_Return_Order_Id_If_It_Was_Created()
         {
-            var newOrder = new Domain.Order() { Id = 100};
+            var newOrder = new Business.Order() { Id = 100};
 
             repositoryMock
                 .Setup(repo => repo.Create())

@@ -12,8 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.StaticFiles;
 using System.IO;
 using Microsoft.Extensions.FileProviders;
-using Store.Domain.Repositories;
-using Store.Domain.Repositories.InMemory;
+using Store.Model.Business.Repositories;
+using Store.Model.Business.Repositories.InMemory;
 
 namespace Store
 {

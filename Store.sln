@@ -14,10 +14,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Test", "Store.Test\St
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client", "Store.Client\Store.Client.csproj", "{0CC904B6-C45C-4102-8B30-D88D5DDF0360}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93D124B3-F337-4719-B40C-DCC1C639C65D} = {93D124B3-F337-4719-B40C-DCC1C639C65D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Client.Example", "Store.Client.Example\Store.Client.Example.csproj", "{796E2426-07F3-428D-8D88-943E8337E0D2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0CC904B6-C45C-4102-8B30-D88D5DDF0360} = {0CC904B6-C45C-4102-8B30-D88D5DDF0360}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Domain", "Store.Domain\Store.Domain.csproj", "{93D124B3-F337-4719-B40C-DCC1C639C65D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Model", "Store.Model\Store.Model.csproj", "{93D124B3-F337-4719-B40C-DCC1C639C65D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

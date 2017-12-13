@@ -30,25 +30,23 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Store.Models
+namespace Store.Model.Transport
 {
     /// <summary>
     /// 
     /// </summary>
     [DataContract]
-    public partial class Item :  IEquatable<Item>
+    public partial class QuantityListInner :  IEquatable<QuantityListInner>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Item" /> class.
+        /// Initializes a new instance of the <see cref="QuantityListInner" /> class.
         /// </summary>
         /// <param name="ItemId">ItemId.</param>
-        /// <param name="Description">Description.</param>
-        /// <param name="Price">Price.</param>
-        public Item(long? ItemId = null, string Description = null, decimal? Price = null)
+        /// <param name="Quantity">Quantity.</param>
+        public QuantityListInner(long? ItemId = null, int? Quantity = null)
         {
             this.ItemId = ItemId;
-            this.Description = Description;
-            this.Price = Price;
+            this.Quantity = Quantity;
             
         }
 
@@ -59,16 +57,10 @@ namespace Store.Models
         public long? ItemId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Description
+        /// Gets or Sets Quantity
         /// </summary>
-        [DataMember(Name="description")]
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Price
-        /// </summary>
-        [DataMember(Name="price")]
-        public decimal? Price { get; set; }
+        [DataMember(Name="quantity")]
+        public int? Quantity { get; set; }
 
 
         /// <summary>
@@ -78,10 +70,9 @@ namespace Store.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Item {\n");
+            sb.Append("class QuantityListInner {\n");
             sb.Append("  ItemId: ").Append(ItemId).Append("\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Price: ").Append(Price).Append("\n");
+            sb.Append("  Quantity: ").Append(Quantity).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -105,15 +96,15 @@ namespace Store.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((Item)obj);
+            return Equals((QuantityListInner)obj);
         }
 
         /// <summary>
-        /// Returns true if Item instances are equal
+        /// Returns true if QuantityListInner instances are equal
         /// </summary>
-        /// <param name="other">Instance of Item to be compared</param>
+        /// <param name="other">Instance of QuantityListInner to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Item other)
+        public bool Equals(QuantityListInner other)
         {
 
             if (ReferenceEquals(null, other)) return false;
@@ -126,14 +117,9 @@ namespace Store.Models
                     this.ItemId.Equals(other.ItemId)
                 ) && 
                 (
-                    this.Description == other.Description ||
-                    this.Description != null &&
-                    this.Description.Equals(other.Description)
-                ) && 
-                (
-                    this.Price == other.Price ||
-                    this.Price != null &&
-                    this.Price.Equals(other.Price)
+                    this.Quantity == other.Quantity ||
+                    this.Quantity != null &&
+                    this.Quantity.Equals(other.Quantity)
                 );
         }
 
@@ -150,22 +136,20 @@ namespace Store.Models
                 // Suitable nullity checks etc, of course :)
                     if (this.ItemId != null)
                     hash = hash * 59 + this.ItemId.GetHashCode();
-                    if (this.Description != null)
-                    hash = hash * 59 + this.Description.GetHashCode();
-                    if (this.Price != null)
-                    hash = hash * 59 + this.Price.GetHashCode();
+                    if (this.Quantity != null)
+                    hash = hash * 59 + this.Quantity.GetHashCode();
                 return hash;
             }
         }
 
         #region Operators
 
-        public static bool operator ==(Item left, Item right)
+        public static bool operator ==(QuantityListInner left, QuantityListInner right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Item left, Item right)
+        public static bool operator !=(QuantityListInner left, QuantityListInner right)
         {
             return !Equals(left, right);
         }

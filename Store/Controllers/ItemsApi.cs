@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Store.Domain.Repositories;
-using Store.Domain.Exceptions;
-using Store.Models;
+using Store.Model.Business.Repositories;
+using Business = Store.Model.Business;
+using Transport = Store.Model.Transport;
+using Store.Model.Business.Repositories.Exceptions;
+using Store.Model;
 
 namespace Store.Controllers
 {
@@ -18,8 +20,8 @@ namespace Store.Controllers
 
         public override async Task<IActionResult> GetAsync()
         {
-            IEnumerable<Domain.Item> list = await _repository.List();
-            return Json(Mapping.Instance.Map<Models.ItemList>(list));
+            IEnumerable<Business.Item > list = await _repository.List();
+            return Json(Mapping.Instance.Map<Transport.ItemList>(list));
         }
 
 
@@ -32,8 +34,8 @@ namespace Store.Controllers
 
             try
             {
-                Domain.Item item = await _repository.GetById(itemId.Value);
-                return Json(Mapping.Instance.Map<Models.Item>(item));
+                Business.Item item = await _repository.GetById(itemId.Value);
+                return Json(Mapping.Instance.Map<Transport.Item>(item));
             }
             catch (ItemNotFoundException ex)
             {

@@ -30,37 +30,21 @@ using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Store.Models
+namespace Store.Model.Transport
 {
     /// <summary>
     /// 
     /// </summary>
     [DataContract]
-    public partial class QuantityListInner :  IEquatable<QuantityListInner>
+    public partial class BadRequest :  IEquatable<BadRequest>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="QuantityListInner" /> class.
+        /// Initializes a new instance of the <see cref="BadRequest" /> class.
         /// </summary>
-        /// <param name="ItemId">ItemId.</param>
-        /// <param name="Quantity">Quantity.</param>
-        public QuantityListInner(long? ItemId = null, int? Quantity = null)
+        public BadRequest()
         {
-            this.ItemId = ItemId;
-            this.Quantity = Quantity;
             
         }
-
-        /// <summary>
-        /// Gets or Sets ItemId
-        /// </summary>
-        [DataMember(Name="itemId")]
-        public long? ItemId { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Quantity
-        /// </summary>
-        [DataMember(Name="quantity")]
-        public int? Quantity { get; set; }
 
 
         /// <summary>
@@ -70,9 +54,7 @@ namespace Store.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class QuantityListInner {\n");
-            sb.Append("  ItemId: ").Append(ItemId).Append("\n");
-            sb.Append("  Quantity: ").Append(Quantity).Append("\n");
+            sb.Append("class BadRequest {\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -96,31 +78,21 @@ namespace Store.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((QuantityListInner)obj);
+            return Equals((BadRequest)obj);
         }
 
         /// <summary>
-        /// Returns true if QuantityListInner instances are equal
+        /// Returns true if BadRequest instances are equal
         /// </summary>
-        /// <param name="other">Instance of QuantityListInner to be compared</param>
+        /// <param name="other">Instance of BadRequest to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(QuantityListInner other)
+        public bool Equals(BadRequest other)
         {
 
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
-                (
-                    this.ItemId == other.ItemId ||
-                    this.ItemId != null &&
-                    this.ItemId.Equals(other.ItemId)
-                ) && 
-                (
-                    this.Quantity == other.Quantity ||
-                    this.Quantity != null &&
-                    this.Quantity.Equals(other.Quantity)
-                );
+            return false;
         }
 
         /// <summary>
@@ -134,22 +106,18 @@ namespace Store.Models
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (this.ItemId != null)
-                    hash = hash * 59 + this.ItemId.GetHashCode();
-                    if (this.Quantity != null)
-                    hash = hash * 59 + this.Quantity.GetHashCode();
                 return hash;
             }
         }
 
         #region Operators
 
-        public static bool operator ==(QuantityListInner left, QuantityListInner right)
+        public static bool operator ==(BadRequest left, BadRequest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(QuantityListInner left, QuantityListInner right)
+        public static bool operator !=(BadRequest left, BadRequest right)
         {
             return !Equals(left, right);
         }

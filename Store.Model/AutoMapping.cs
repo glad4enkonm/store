@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Collections.Generic;
 
-namespace Store.Models
+namespace Store.Model
 {
     public static class Mapping
     {
@@ -9,7 +9,7 @@ namespace Store.Models
         {
             IMapper innerMapper = (
                 new MapperConfiguration(cfg =>
-                    cfg.CreateMap<KeyValuePair<long, int>, Models.QuantityListInner>()
+                    cfg.CreateMap<KeyValuePair<long, int>, Transport.QuantityListInner>()
                         .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Key))
                         .ForMember(dst => dst.Quantity, opt => opt.MapFrom(src => src.Value)))
             ).CreateMapper();
@@ -17,16 +17,16 @@ namespace Store.Models
 
             var configuration = new MapperConfiguration(conf =>
             {
-                conf.CreateMap<Domain.Item, Models.Item>()
+                conf.CreateMap<Business.Item, Transport.Item>()
                     .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Id));
 
-                conf.CreateMap<Domain.Item, Models.Item>()
+                conf.CreateMap<Business.Item, Transport.Item>()
                    .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Id));
 
-                conf.CreateMap<Domain.Order, Models.Order>()
+                conf.CreateMap<Business.Order, Transport.Order>()
                     .ForMember(dst => dst.OrderId, opt => opt.MapFrom(src => src.Id))
                     .ForMember(dst => dst.Items, opt =>
-                         opt.MapFrom(src => innerMapper.Map<Models.QuantityList>(src.QuantityByItemId)));
+                         opt.MapFrom(src => innerMapper.Map<Transport.QuantityList>(src.QuantityByItemId)));
 
             });
             

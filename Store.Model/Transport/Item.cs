@@ -21,46 +21,49 @@
  */
 
 using System;
-using System.Linq;
-using System.IO;
 using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace Store.Models
+namespace Store.Model.Transport
 {
     /// <summary>
     /// 
     /// </summary>
     [DataContract]
-    public partial class Order :  IEquatable<Order>
+    public partial class Item :  IEquatable<Item>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Order" /> class.
+        /// Initializes a new instance of the <see cref="Item" /> class.
         /// </summary>
-        /// <param name="OrderId">OrderId.</param>
-        /// <param name="Items">Items.</param>
-        public Order(long? OrderId = null, QuantityList Items = null)
+        /// <param name="ItemId">ItemId.</param>
+        /// <param name="Description">Description.</param>
+        /// <param name="Price">Price.</param>
+        public Item(long? ItemId = null, string Description = null, decimal? Price = null)
         {
-            this.OrderId = OrderId;
-            this.Items = Items;
+            this.ItemId = ItemId;
+            this.Description = Description;
+            this.Price = Price;
             
         }
 
         /// <summary>
-        /// Gets or Sets OrderId
+        /// Gets or Sets ItemId
         /// </summary>
-        [DataMember(Name="orderId")]
-        public long? OrderId { get; set; }
+        [DataMember(Name="itemId")]
+        public long? ItemId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Items
+        /// Gets or Sets Description
         /// </summary>
-        [DataMember(Name="items")]
-        public QuantityList Items { get; set; }
+        [DataMember(Name="description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Price
+        /// </summary>
+        [DataMember(Name="price")]
+        public decimal? Price { get; set; }
 
 
         /// <summary>
@@ -70,9 +73,10 @@ namespace Store.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Order {\n");
-            sb.Append("  OrderId: ").Append(OrderId).Append("\n");
-            sb.Append("  Items: ").Append(Items).Append("\n");
+            sb.Append("class Item {\n");
+            sb.Append("  ItemId: ").Append(ItemId).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  Price: ").Append(Price).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -96,15 +100,15 @@ namespace Store.Models
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Equals((Order)obj);
+            return Equals((Item)obj);
         }
 
         /// <summary>
-        /// Returns true if Order instances are equal
+        /// Returns true if Item instances are equal
         /// </summary>
-        /// <param name="other">Instance of Order to be compared</param>
+        /// <param name="other">Instance of Item to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Order other)
+        public bool Equals(Item other)
         {
 
             if (ReferenceEquals(null, other)) return false;
@@ -112,14 +116,19 @@ namespace Store.Models
 
             return 
                 (
-                    this.OrderId == other.OrderId ||
-                    this.OrderId != null &&
-                    this.OrderId.Equals(other.OrderId)
+                    this.ItemId == other.ItemId ||
+                    this.ItemId != null &&
+                    this.ItemId.Equals(other.ItemId)
                 ) && 
                 (
-                    this.Items == other.Items ||
-                    this.Items != null &&
-                    this.Items.Equals(other.Items)
+                    this.Description == other.Description ||
+                    this.Description != null &&
+                    this.Description.Equals(other.Description)
+                ) && 
+                (
+                    this.Price == other.Price ||
+                    this.Price != null &&
+                    this.Price.Equals(other.Price)
                 );
         }
 
@@ -134,22 +143,24 @@ namespace Store.Models
             {
                 int hash = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (this.OrderId != null)
-                    hash = hash * 59 + this.OrderId.GetHashCode();
-                    if (this.Items != null)
-                    hash = hash * 59 + this.Items.GetHashCode();
+                    if (this.ItemId != null)
+                    hash = hash * 59 + this.ItemId.GetHashCode();
+                    if (this.Description != null)
+                    hash = hash * 59 + this.Description.GetHashCode();
+                    if (this.Price != null)
+                    hash = hash * 59 + this.Price.GetHashCode();
                 return hash;
             }
         }
 
         #region Operators
 
-        public static bool operator ==(Order left, Order right)
+        public static bool operator ==(Item left, Item right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Order left, Order right)
+        public static bool operator !=(Item left, Item right)
         {
             return !Equals(left, right);
         }

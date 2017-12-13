@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Store.Domain.Exceptions;
+using Store.Model.Business.Repositories.Exceptions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Store.Domain.Repositories.InMemory
+namespace Store.Model.Business.Repositories.InMemory
 {
     public class OrderRepository: IOrderRepository
     {
@@ -17,11 +16,11 @@ namespace Store.Domain.Repositories.InMemory
 
         IMapper _mapper = (new MapperConfiguration(conf =>
         {
-            conf.CreateMap<Domain.Order, ConcurrentOrder>()
+            conf.CreateMap<Business.Order, ConcurrentOrder>()
                 .ForMember(dst => dst.QuantityByItemId,
                     opt => opt.MapFrom(src => new ConcurrentDictionary<long, int>(src.QuantityByItemId)));
 
-            conf.CreateMap<ConcurrentOrder, Domain.Order>()
+            conf.CreateMap<ConcurrentOrder, Business.Order>()
                 .ForMember(dst => dst.QuantityByItemId,
                     opt => opt.MapFrom(src =>
                         src.QuantityByItemId.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)));
@@ -33,10 +32,10 @@ namespace Store.Domain.Repositories.InMemory
             public ConcurrentDictionary<long, int> QuantityByItemId;
         }
 
-        public Task<Domain.Order> Create()
+        public Task<Business.Order> Create()
         {
             long newId = _random.Next(1, Int32.MaxValue); // get some new id
-            var newOrder = new Domain.Order { Id = newId, QuantityByItemId = null };
+            var newOrder = new Business.Order { Id = newId, QuantityByItemId = null };
 
             var concurrentOrder = 
                 _orders.GetOrAdd(newId, _mapper.Map<ConcurrentOrder>(newOrder));
@@ -44,19 +43,19 @@ namespace Store.Domain.Repositories.InMemory
             return Task.FromResult(newOrder);
         }
 
-        public Task<Domain.Order> GetById(long id)
+        public Task<Business.Order> GetById(long id)
         {
             if (!_orders.TryGetValue(id, out ConcurrentOrder concurrentOrder))
             {
                 throw new OrderNotFoundException();
             }
-            return Task.FromResult(_mapper.Map<Domain.Order>(concurrentOrder));
+            return Task.FromResult(_mapper.Map<Business.Order>(concurrentOrder));
         }
 
-        public Task<IEnumerable<Domain.Order>> List()
+        public Task<IEnumerable<Business.Order>> List()
         {
             var orders = _orders.Values.ToList();
-            return Task.FromResult(_mapper.Map<IEnumerable<Domain.Order>>(orders));
+            return Task.FromResult(_mapper.Map<IEnumerable<Business.Order>>(orders));
         }
 
         public Task<Order> DeleteById(long id)
