@@ -41,7 +41,7 @@ namespace Store.Controllers.Abstract
         /// <response code="400">Bad request.</response>
         [HttpDelete]
         [Route("/orders/{orderId}")]
-        public abstract Task DeleteAsync([FromRoute]long? orderId);
+        public abstract Task<IActionResult> DeleteAsync([FromRoute]long? orderId);
 
 
         /// <summary>

@@ -14,9 +14,22 @@ namespace Store.Controllers
     {
         IOrderRepository _orderRepository;
 
-        public override async Task DeleteAsync([FromRoute]long? orderId)
+        public override async Task<IActionResult> DeleteAsync([FromRoute]long? orderId)
         {
-            throw new NotImplementedException();
+            if (!orderId.HasValue)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                await _orderRepository.DeleteById(orderId.Value);
+                return Ok();
+            }
+            catch (OrderNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         public OrdersApi(IOrderRepository orderRepository)
@@ -52,7 +65,26 @@ namespace Store.Controllers
 
         public override async Task<IActionResult> PatchAsync([FromRoute]long? orderId, [FromBody]Transport.QuantityList quantityList)
         {
-            throw new NotImplementedException();
+            if (!orderId.HasValue)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var orderTransport = 
+                    new Transport.Order() {OrderId = orderId.Value, Items = quantityList };
+
+                var orderBusiness =  Mapping.Instance.Map<Business.Order>(orderTransport);
+
+                var order = await _orderRepository.UpdateOrder(orderBusiness);
+
+                return Json(Mapping.Instance.Map<Transport.Order>(order));
+            }
+            catch (OrderNotFoundException)
+            {
+                return NotFound();
+            }
         }
 
 

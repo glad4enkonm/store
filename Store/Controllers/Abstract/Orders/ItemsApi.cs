@@ -41,7 +41,7 @@ namespace Store.Controllers.Abstract.Orders
         /// <response code="400">Invalid id specified.</response>
         [HttpDelete]
         [Route("/orders/{orderId}/items/{itemId}")]
-        public abstract Task DeleteAsync([FromRoute]long? orderId, [FromRoute]long? itemId);
+        public abstract Task<IActionResult> DeleteAsync([FromRoute]long? orderId, [FromRoute]long? itemId);
 
 
         /// <summary>

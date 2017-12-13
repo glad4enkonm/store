@@ -16,11 +16,11 @@ namespace Store.Model.Business.Repositories.InMemory
 
         IMapper _mapper = (new MapperConfiguration(conf =>
         {
-            conf.CreateMap<Business.Order, ConcurrentOrder>()
+            conf.CreateMap<Order, ConcurrentOrder>()
                 .ForMember(dst => dst.QuantityByItemId,
                     opt => opt.MapFrom(src => new ConcurrentDictionary<long, int>(src.QuantityByItemId)));
 
-            conf.CreateMap<ConcurrentOrder, Business.Order>()
+            conf.CreateMap<ConcurrentOrder, Order>()
                 .ForMember(dst => dst.QuantityByItemId,
                     opt => opt.MapFrom(src =>
                         src.QuantityByItemId.ToDictionary(kvp => kvp.Key, kvp => kvp.Value)));
@@ -32,10 +32,10 @@ namespace Store.Model.Business.Repositories.InMemory
             public ConcurrentDictionary<long, int> QuantityByItemId;
         }
 
-        public Task<Business.Order> Create()
+        public Task<Order> Create()
         {
             long newId = _random.Next(1, Int32.MaxValue); // get some new id
-            var newOrder = new Business.Order { Id = newId, QuantityByItemId = null };
+            var newOrder = new Order { Id = newId, QuantityByItemId = null };
 
             var concurrentOrder = 
                 _orders.GetOrAdd(newId, _mapper.Map<ConcurrentOrder>(newOrder));
@@ -43,24 +43,43 @@ namespace Store.Model.Business.Repositories.InMemory
             return Task.FromResult(newOrder);
         }
 
-        public Task<Business.Order> GetById(long id)
+        public Task<Order> GetById(long id)
         {
             if (!_orders.TryGetValue(id, out ConcurrentOrder concurrentOrder))
             {
                 throw new OrderNotFoundException();
             }
-            return Task.FromResult(_mapper.Map<Business.Order>(concurrentOrder));
+            return Task.FromResult(_mapper.Map<Order>(concurrentOrder));
         }
 
-        public Task<IEnumerable<Business.Order>> List()
+        public Task<Order> UpdateOrder(Order order)
+        {
+            if (!_orders.TryGetValue(order.Id, out ConcurrentOrder concurrentOrder))
+            {
+                throw new OrderNotFoundException();
+            }
+
+            // TO DO: check item exist
+
+            concurrentOrder.QuantityByItemId = 
+                new ConcurrentDictionary<long, int>(order.QuantityByItemId);
+
+            return Task.FromResult(_mapper.Map<Order>(concurrentOrder));
+        }
+
+        public Task<IEnumerable<Order>> List()
         {
             var orders = _orders.Values.ToList();
-            return Task.FromResult(_mapper.Map<IEnumerable<Business.Order>>(orders));
+            return Task.FromResult(_mapper.Map<IEnumerable<Order>>(orders));
         }
 
-        public Task<Order> DeleteById(long id)
+        public Task DeleteById(long id)
         {
-            throw new NotImplementedException();
+            if (!_orders.TryRemove(id, out ConcurrentOrder order))
+            {
+                throw new OrderNotFoundException();
+            }
+            return Task.CompletedTask;
         }
 
         public Task<Order> AddItem(long OrderId, long itemId)

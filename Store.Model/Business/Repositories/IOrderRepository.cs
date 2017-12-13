@@ -7,9 +7,12 @@ namespace Store.Model.Business.Repositories
     {
         Task<Order> Create();
         Task<Order> GetById(long id);
-        Task<Order> DeleteById(long id);
-
         Task<IEnumerable<Order>> List();
+
+        Task<Order> UpdateOrder(Order order);
+
+        Task DeleteById(long id);
+        
         Task<Order> AddItem(long OrderId, long itemId);
         Task<Order> RemoveItem(long OrderId, long itemId);
 

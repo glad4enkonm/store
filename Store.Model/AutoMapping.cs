@@ -37,11 +37,21 @@ namespace Store.Model
                 conf.CreateMap< Transport.Order, Business.Order>()
                     .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.OrderId))
                     .ForMember(dst => dst.QuantityByItemId, opt =>
-                         opt.MapFrom(src => innerMapper.Map<KeyValuePair<long, int>>(src.Items)));
+                         opt.MapFrom(src => _toDictionary(src.Items)));
 
             });
             
             Instance = configuration.CreateMapper();
+        }
+
+        private static Dictionary<long, int> _toDictionary(Transport.QuantityList qList)
+        {
+            var res = new Dictionary<long, int>();
+            foreach (var q in qList)
+            {
+                res[q.ItemId.Value] = q.Quantity.Value;
+            }
+            return res;
         }
 
         public static IMapper Instance = null;
