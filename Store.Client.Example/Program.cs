@@ -13,6 +13,8 @@ namespace Store.Client.Example
 
             var storeClient = new StoreClient(restClient);
             var items =  storeClient.GetItems();
+
+            var firstItem = storeClient.GetItem(1);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using RestSharp;
 using System.Collections.Generic;
-using RestSharp.Serializers;
-using Store.Model.Transport;
+using Business = Store.Model.Business;
+using Transport = Store.Model.Transport;
 
 namespace Store.Client
 {
@@ -27,14 +27,21 @@ namespace Store.Client
             return response.Data;            
         }
 
-        public IEnumerable<Item> GetItems()
+        public IEnumerable<Business.Item> GetItems()
         {
-            var request = new RestRequest
-            {
-                Resource = "Items"
-            };            
+            var request = new RestRequest { Resource = "Items" };
+            
+            var items = Execute<List<Transport.Item>>(request);
+            return Model.Mapping.Instance.Map<IEnumerable<Business.Item>>(items);
+        }
 
-            return Execute<List<Item>>(request);
+        public Business.Item GetItem(long itemId)
+        {
+            var request = new RestRequest { Resource = "Items/{itemId}" };
+            request.AddParameter("itemId", itemId, ParameterType.UrlSegment);
+
+            var items = Execute<Transport.Item>(request);
+            return Model.Mapping.Instance.Map<Business.Item>(items);
         }
 
     }

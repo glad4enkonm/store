@@ -20,6 +20,9 @@ namespace Store.Model
                 conf.CreateMap<Business.Item, Transport.Item>()
                     .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Id));
 
+                conf.CreateMap<Transport.Item, Business.Item>()
+                    .ForMember(dst => dst.Id, opt => opt.MapFrom(src => src.ItemId));
+
                 conf.CreateMap<Business.Item, Transport.Item>()
                    .ForMember(dst => dst.ItemId, opt => opt.MapFrom(src => src.Id));
 

@@ -38,6 +38,8 @@ namespace Store.Model.Transport
     [DataContract]
     public partial class Order :  IEquatable<Order>
     {
+        public Order() { } // RestClient support
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Order" /> class.
         /// </summary>

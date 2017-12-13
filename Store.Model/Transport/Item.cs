@@ -33,6 +33,8 @@ namespace Store.Model.Transport
     [DataContract]
     public partial class Item :  IEquatable<Item>
     {
+        public Item(){ } // RestClient support
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Item" /> class.
         /// </summary>

@@ -38,6 +38,8 @@ namespace Store.Model.Transport
     [DataContract]
     public partial class QuantityListInner :  IEquatable<QuantityListInner>
     {
+        public QuantityListInner() { } // RestClient support
+
         /// <summary>
         /// Initializes a new instance of the <see cref="QuantityListInner" /> class.
         /// </summary>
