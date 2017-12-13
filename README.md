@@ -13,21 +13,14 @@ It's time to summarize my 3 days efforts:
 - Included [automapper](http://automapper.org/), had difficulties with Mapper in unit tests. Started to work stable only after singleton mapper implementation.
 - In memory repositories for items and orders.
 - Unit tests.
+- Model form API and Doman project merged into one.
 
-Only part from the original plan is ready.
-
-Finished end points:
-
-- /items (get)
-- /items/{itemId} (get)
-- /orders (get, put)
-- /orders/{orderId} (get)
+All end points finished
 
 TO DO:
 
-- Client and example
-- Finish other end points
-- Additional tests
-- Spend more time on github learning by great examples
-- Say thanks for a chance to know new (swagger tools, HAL)
-- Have a good sleep :)
+- Reiew and clean up client and example, add comments
+- Add unit tests for all end points
+- More tests.. :)
+- Refactor to use HAL (api & client)
+- Spend time on github learning by great examples
