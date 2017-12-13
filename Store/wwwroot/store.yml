@@ -138,7 +138,7 @@ paths:
     delete:
       tags: 
         - "orders-items"
-      summary: Delete item from an arder.
+      summary: Delete item from an order.
       responses:
         200:
           description: Ok.
@@ -149,7 +149,7 @@ paths:
     patch:
       tags: 
         - "orders-items"
-      summary: Modify items quantity in an arder.
+      summary: Modify items quantity in an order.
       parameters:
         - name: quantity
           in: body
