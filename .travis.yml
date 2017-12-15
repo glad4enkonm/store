@@ -5,4 +5,8 @@ dotnet: 2.0.3
 dist: trusty
 script:
  - dotnet restore
- - dotnet build Store.sln
+ - dotnet build ./Store.Model/
+ - dotnet build ./Store/
+ - dotnet build ./Store.Client/
+ - dotnet build ./Store.Client.Example/
+ - dotnet build ./Store.Test/
